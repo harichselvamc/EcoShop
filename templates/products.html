@@ -7,237 +7,612 @@
     :root {
         --primary-color: #1abc9c;
         --primary-dark: #16a085;
+        --primary-light: #e8f5e9;
         --secondary-color: #f39c12;
+        --secondary-dark: #d68910;
         --danger-color: #e74c3c;
+        --danger-dark: #c0392b;
         --text-color: #2c3e50;
         --secondary-text: #7f8c8d;
+        --light-text: #95a5a6;
         --background-light: #f8f9fa;
-        --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        --card-shadow-hover: 0 12px 24px rgba(0, 0, 0, 0.15);
         --input-border-color: #ddd;
+        --border-radius: 12px;
+        --transition: all 0.3s ease;
     }
 
-    /* Page Title */
-    h2.my-4 {
-        color: var(--text-color);
+    /* Page Header */
+    .page-header {
         text-align: center;
-        font-weight: bold;
-        border-bottom: 3px solid var(--primary-color);
+        margin-bottom: 3rem;
+        position: relative;
+    }
+
+    .page-header h2 {
+        color: var(--text-color);
+        font-weight: 700;
         display: inline-block;
-        padding-bottom: 0.5rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .page-header h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--primary-color);
+        border-radius: 2px;
     }
 
     /* Upload Card */
     .upload-card {
-        background-color: #fff;
-        border-radius: 8px;
-        padding: 2rem;
-        margin-bottom: 2rem;
+        background-color: white;
+        border-radius: var(--border-radius);
+        padding: 2.5rem;
+        margin-bottom: 3rem;
         box-shadow: var(--card-shadow);
+        border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
-    .upload-card h5 {
-        font-size: 1.5rem;
+    .upload-card h3 {
+        font-size: 1.75rem;
         color: var(--text-color);
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 1rem;
     }
 
-    /* Form Field Styles */
-    .upload-card .form-label {
+    .upload-card h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: var(--primary-color);
+        border-radius: 2px;
+    }
+
+    /* Form Styles */
+    .form-label {
         font-weight: 600;
         color: var(--text-color);
+        margin-bottom: 0.5rem;
     }
 
-    .upload-card .form-control {
+    .form-control {
         border-radius: 8px;
         border: 1px solid var(--input-border-color);
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         padding: 1rem;
         font-size: 1rem;
+        transition: var(--transition);
     }
 
-    .upload-card .form-control:focus {
+    .form-control:focus {
         border-color: var(--primary-color);
-        box-shadow: 0 0 5px rgba(26, 188, 156, 0.5);
+        box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.15);
     }
 
-    .upload-card .row .col-md-4,
-    .upload-card .row .col-md-3 {
-        margin-bottom: 1.5rem;
+    textarea.form-control {
+        min-height: 120px;
     }
 
-    /* Submit Button */
-    .upload-card .btn-primary {
+    /* Buttons */
+    .btn-primary {
         background-color: var(--primary-color);
         border: none;
         padding: 0.75rem 2rem;
-        border-radius: 5px;
+        border-radius: 8px;
         font-size: 1rem;
-        text-transform: uppercase;
-        transition: background-color 0.3s ease, transform 0.3s ease;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
     }
 
-    .upload-card .btn-primary:hover {
+    .btn-primary:hover {
         background-color: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(26, 188, 156, 0.3);
+    }
+
+    .btn-warning {
+        background-color: var(--secondary-color);
+        border: none;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+
+    .btn-warning:hover {
+        background-color: var(--secondary-dark);
+        transform: translateY(-2px);
+    }
+
+    .btn-danger {
+        background-color: var(--danger-color);
+        border: none;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+
+    .btn-danger:hover {
+        background-color: var(--danger-dark);
         transform: translateY(-2px);
     }
 
     /* Product Grid */
     .product-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 2rem;
         margin-top: 2rem;
     }
 
     .product-card {
-        background-color: #fff;
-        border-radius: 8px;
+        background-color: white;
+        border-radius: var(--border-radius);
         overflow: hidden;
         box-shadow: var(--card-shadow);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        padding: 1rem;
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     .product-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--card-shadow-hover);
+    }
+
+    .product-image-container {
+        height: 220px;
+        overflow: hidden;
+        position: relative;
     }
 
     .product-card img {
         width: 100%;
-        height: 200px;
+        height: 100%;
         object-fit: cover;
-        transition: transform 0.3s ease;
-        border-radius: 8px;
+        transition: var(--transition);
     }
 
-    .product-card img:hover {
+    .product-card:hover img {
         transform: scale(1.05);
     }
 
-    .product-card .card-body {
-        padding: 1rem;
+    .product-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
     }
 
-    .product-card .card-title {
+    .product-body {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-title {
         font-size: 1.25rem;
         color: var(--text-color);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
     }
 
-    .product-card .card-text {
-        font-size: 1rem;
+    .product-price {
+        font-size: 1.5rem;
+        color: var(--primary-dark);
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .product-meta {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .product-meta i {
+        color: var(--primary-color);
+        margin-right: 0.5rem;
+        width: 20px;
+        text-align: center;
+    }
+
+    .product-description {
         color: var(--secondary-text);
-        margin-bottom: 0.5rem;
+        margin: 1rem 0;
+        flex-grow: 1;
     }
 
-    .product-card .btn-warning,
-    .product-card .btn-danger {
-        margin-top: 1rem;
+    .product-actions {
+        margin-top: 1.5rem;
+        display: flex;
+        gap: 0.75rem;
     }
 
-    .btn-warning {
-        background-color: var(--secondary-color);
-        border: none;
+    .product-actions .btn {
+        flex: 1;
     }
 
-    .btn-warning:hover {
-        background-color: #d68910;
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 4rem 0;
+        grid-column: 1 / -1;
     }
 
-    .btn-danger {
-        background-color: var(--danger-color);
-        border: none;
+    .empty-state i {
+        font-size: 4rem;
+        color: var(--light-text);
+        margin-bottom: 1.5rem;
     }
 
-    .btn-danger:hover {
-        background-color: #c0392b;
+    .empty-state h3 {
+        color: var(--text-color);
+        margin-bottom: 1rem;
+    }
+
+    .empty-state p {
+        color: var(--secondary-text);
+        max-width: 500px;
+        margin: 0 auto 2rem;
     }
 
     /* Responsive Adjustments */
     @media (max-width: 767px) {
-        .upload-card .row {
-            margin-left: 0;
-            margin-right: 0;
+        .upload-card {
+            padding: 1.5rem;
         }
 
-        .product-card .card-body {
-            padding: 1rem;
+        .product-grid {
+            grid-template-columns: 1fr;
         }
     }
 </style>
 
-<div class="container">
-    <h2 class="my-4">Available Products</h2>
+<div class="container py-4">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h2>Available Products</h2>
+    </div>
 
     <!-- Upload New Product -->
     <div class="upload-card">
-        <h5>Upload a New Product</h5>
+        <h3>List a New Product</h3>
         <form method="POST" enctype="multipart/form-data">
             <div class="row g-3">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label for="name" class="form-label">Product Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Product Name" required>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" required>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="price" class="form-label">Price (₹)</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Price" step="0.01" required>
-                </div>
-                <div class="col-md-2">
-                    <label for="quantity" class="form-label">Quantity (pieces)</label>
-                    <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantity" required>
+                    <input type="number" class="form-control" id="price" name="price" placeholder="0.00" step="0.01" min="0" required>
                 </div>
                 <div class="col-md-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Number of pieces" min="1" required>
+                </div>
+                <div class="col-md-4">
                     <label for="weight" class="form-label">Weight per Piece (kg)</label>
-                    <input type="number" class="form-control" id="weight" name="weight" placeholder="Weight per Piece" step="0.01" required>
+                    <input type="number" class="form-control" id="weight" name="weight" placeholder="Weight in kilograms" step="0.01" min="0" required>
                 </div>
-                <div class="col-md-3">
-                    <label for="place" class="form-label">Place</label>
-                    <input type="text" class="form-control" id="place" name="place" placeholder="Place" required>
+                <div class="col-md-4">
+                    <label for="place" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="place" name="place" placeholder="Where is this available?" required>
                 </div>
-                <div class="col-md-3">
+               
+                <div class="col-md-6">
                     <label for="file" class="form-label">Product Image</label>
                     <input type="file" class="form-control" id="file" name="file" accept="image/*" required>
+                    <small class="text-muted">Upload a clear photo of your product (JPEG or PNG)</small>
                 </div>
-                <div class="col-md-3">
-                    <label for="description" class="form-label">Product Description</label>
-                    <textarea class="form-control" id="description" name="description" placeholder="Product Description" rows="4" required></textarea>
+                <div class="col-md-6">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" placeholder="Describe your product in detail" required></textarea>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Upload Product</button>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary px-5">
+                    <i class="bi bi-upload me-2"></i>List Product
+                </button>
+            </div>
         </form>
     </div>
 
-    <!-- Product Listings -->
-    <div class="product-grid">
+<!-- Product Listings -->
+<div class="product-grid">
+    {% if products %}
         {% for product in products %}
         <div class="product-card">
-            <img src="{{ product.image or 'https://via.placeholder.com/300x200' }}" alt="{{ product.name }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">Price: ₹{{ "%.2f"|format(product.price) }}</p>
-                <p class="card-text">Location: {{ product.place }}</p>
-                <p class="card-text">Category: {{ product.category }}</p>
-                <p class="card-text">Owner: {{ product.owner_name }}</p>
-                <p class="card-text">
-                    <strong>Contact:</strong> 
-                    <a href="mailto:{{ product.owner_email }}">{{ product.owner_email }}</a>
-                </p>
-                <p class="card-text">Quantity: {{ product.quantity }} pieces</p>
-                <p class="card-text">Weight per Piece: {{ product.weight }} kg</p>
-                <p class="card-text"><strong>Description:</strong> {{ product.description }}</p>
+            <div class="product-image-container">
+                <img src="{{ product.image or 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80' }}" alt="{{ product.name }}">
+                <span class="product-badge">{{ product.category }}</span>
+                {% if product.quantity <= 5 %}
+                <span class="product-stock-badge">Low Stock!</span>
+                {% endif %}
+            </div>
+            <div class="product-body">
+                <h3 class="product-title">{{ product.name }}</h3>
+                
+                <!-- Price Tag -->
+                <div class="price-tag">
+                    {% if product.price == 0 or product.price == 0.00 %}
+                        <span class="price-value-free">FREE</span>
+                    {% else %}
+                        <span class="price-icon">₹</span>
+                        <span class="price-value">{{ "%.2f"|format(product.price) }}</span>
+                        {% if product.price < 500 %}
+                        <span class="price-discount-tag">Great Deal!</span>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                
+                <!-- Product Details Tags -->
+                <div class="product-tags-container">
+                    <div class="product-tag location-tag">
+                        <i class="bi bi-geo-alt"></i>
+                        <span>{{ product.place }}</span>
+                    </div>
+                    
+                    <div class="product-tag quantity-tag">
+                        <i class="bi bi-box"></i>
+                        <span>{{ product.quantity }} in stock</span>
+                    </div>
+                    
+                    <div class="product-tag weight-tag">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>{{ product.weight }} kg each</span>
+                    </div>
+                </div>
+                
+                <!-- Description -->
+                <div class="product-description-container">
+                    <h4 class="description-heading">Product Details</h4>
+                    <p class="product-description">{{ product.description }}</p>
+                </div>
+                
+                <!-- Seller Information -->
+                <div class="seller-info-tag">
+                    <div class="seller-details">
+                        <div class="seller-name">{{ product.owner_name }}</div>
+                        <div class="seller-contact">
+                            <a href="mailto:{{ product.owner_email }}" class="seller-email">
+                                <i class="bi bi-envelope"></i> {{ product.owner_email }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
                 {% if product.owner_id == session.get('user_id') %}
-                <div class="d-flex justify-content-between">
-                    <a href="{{ url_for('edit_product', product_id=product['_id']) }}" class="btn btn-warning">Edit</a>
-                    <form method="POST" action="{{ url_for('delete_product', product_id=product['_id']) }}" style="display:inline;">
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                <div class="product-actions">
+                    <a href="{{ url_for('edit_product', product_id=product['_id']) }}" class="btn btn-warning action-btn">
+                        <i class="bi bi-pencil"></i> Edit
+                    </a>
+                    <form method="POST" action="{{ url_for('delete_product', product_id=product['_id']) }}" class="d-inline action-form">
+                        <button type="submit" class="btn btn-danger action-btn" onclick="return confirm('Are you sure you want to delete this product?');">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
                     </form>
                 </div>
                 {% endif %}
             </div>
         </div>
         {% endfor %}
-    </div>
+    {% else %}
+        <div class="empty-state">
+            <i class="bi bi-box-seam"></i>
+            <h3>No Products Available</h3>
+            <p>Be the first to list a product in our marketplace. Click the "List Product" button above to get started!</p>
+            <a href="#upload-card" class="btn btn-primary px-4">
+                <i class="bi bi-plus-lg"></i> List a Product
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .price-value-free {
+    color: #2ecc71;
+    font-weight: 700;
+    font-size: 1.5rem;
+    padding: 0.2rem 0.8rem;
+    background-color: #e8f5e9;
+    border-radius: 4px;
+}
+    /* Product Tags Styles */
+    .product-tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 1rem 0;
+    }
+
+    .product-tag {
+        display: inline-flex;
+        align-items: center;
+        background-color: #f0f7f4;
+        border-radius: 20px;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+        color: #2c3e50;
+    }
+
+    .product-tag i {
+        margin-right: 0.4rem;
+        color: #1abc9c;
+    }
+
+    /* Specific tag styles */
+    .location-tag {
+        background-color: #e3f2fd;
+    }
+    .location-tag i {
+        color: #2196f3;
+    }
+
+    .quantity-tag {
+        background-color: #fff8e1;
+    }
+    .quantity-tag i {
+        color: #ffb300;
+    }
+
+    .weight-tag {
+        background-color: #f1f8e9;
+    }
+    .weight-tag i {
+        color: #7cb342;
+    }
+
+    /* Price Tag */
+    .price-tag {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #2e7d32;
+        margin: 0.5rem 0;
+        position: relative;
+    }
+
+    .price-icon {
+        font-size: 1.2rem;
+        margin-right: 0.2rem;
+    }
+
+    .price-discount-tag {
+        background-color: #ffeb3b;
+        color: #ff6f00;
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 0.2rem 0.6rem;
+        border-radius: 10px;
+        margin-left: 0.8rem;
+        position: absolute;
+        right: 0;
+    }
+
+    /* Product Badges */
+    .product-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background-color: #1abc9c;
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .product-stock-badge {
+        position: absolute;
+        top: 3rem;
+        right: 1rem;
+        background-color: #e53935;
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    /* Description Section */
+    .product-description-container {
+        margin: 1.5rem 0;
+        padding: 1rem;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+    }
+
+    .description-heading {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .product-description {
+        color: #555;
+        line-height: 1.5;
+        margin-bottom: 0;
+    }
+
+    /* Seller Information */
+    .seller-info-tag {
+        display: flex;
+        align-items: center;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        padding: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .seller-icon {
+        width: 40px;
+        height: 40px;
+        background-color: #e0e0e0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        color: #555;
+        font-size: 1.2rem;
+    }
+
+    .seller-details {
+        flex-grow: 1;
+    }
+
+    .seller-name {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .seller-email {
+        color: #1a73e8;
+        text-decoration: none;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .seller-email i {
+        margin-right: 0.3rem;
+    }
+
+    /* Action Buttons */
+    .product-actions {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+    }
+
+    .action-btn {
+        flex: 1;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+</style>
 </div>
 
 {% endblock %}

@@ -4,243 +4,444 @@
 
 {% block content %}
 <style>
-    .featured-products {
-        background-color: #f8f9fa;
-        padding: 30px 0;
+    :root {
+        --primary-light: #e8f5e9;
+        --secondary-text: #546e7a;
+        --accent-color: #ffab00;
+        --dark-green: #1b5e20;
     }
 
-    .featured-products h2 {
-        font-size: 2.5rem;
+    /* Hero Section */
+    .hero-section {
+        background: linear-gradient(135deg, #1b5e20, #4caf50);
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 3rem;
+    }
+
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+        opacity: 0.15;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 5rem 0;
+    }
+
+    /* Section Styling */
+    .section {
+        padding: 4rem 0;
+    }
+
+    .section-title {
+        font-weight: 700;
+        margin-bottom: 3rem;
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: var(--primary-color);
+        border-radius: 2px;
+    }
+
+    .section-light {
+        background-color: var(--primary-light);
+        border-radius: 16px;
+    }
+
+    /* Card Styling */
+    .eco-card {
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+    .eco-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .eco-card-img {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .eco-card-body {
+        padding: 1.5rem;
+    }
+
+    .eco-card-title {
+        font-weight: 600;
+        color: var(--text-color);
+    }
+
+    .eco-card-text {
+        color: var(--secondary-text);
+    }
+
+    /* Feature List */
+    .feature-list {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .feature-list li {
+        padding: 0.75rem 0;
+        position: relative;
+        padding-left: 2.5rem;
+    }
+
+    .feature-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0.75rem;
+        color: var(--primary-color);
         font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+        height: 100%;
+    }
+
+    .testimonial-text {
+        font-style: italic;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .testimonial-author {
+        font-weight: 600;
         color: var(--primary-color);
     }
 
-    .featured-products .card {
-        border-radius: 8px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* CTA Section */
+    .cta-section {
+        background: linear-gradient(135deg, #2e7d32, #388e3c);
+        color: white;
+        border-radius: 16px;
+        padding: 4rem 0;
+        position: relative;
+        overflow: hidden;
     }
 
-    .featured-products .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    .cta-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+        opacity: 0.1;
     }
 
-    .featured-products .card-body {
-        padding: 1.25rem;
+    .cta-content {
+        position: relative;
+        z-index: 2;
     }
 
-    .featured-products .card-title {
-        font-size: 1.2rem;
-        color: var(--text-color);
-        margin-bottom: 1rem;
-    }
-
-    .featured-products .card-text {
-        font-size: 1rem;
-        color: var(--secondary-text);
-        margin-bottom: 0.75rem;
-    }
-
-    .featured-products .btn-primary {
-        background-color: var(--primary-color);
+    /* Button Enhancements */
+    .btn-cta {
+        background-color: var(--accent-color);
         border: none;
-        padding: 10px;
-        transition: background-color 0.3s ease;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
     }
 
-    .featured-products .btn-primary:hover {
-        background-color: var(--primary-dark);
+    .btn-cta:hover {
+        background-color: #ff8f00;
+        transform: translateY(-2px);
     }
 
-    .featured-products .card-img-top {
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        object-fit: cover;
-        height: 250px;
-    }
-
-    .featured-products .alert-info {
-        background-color: #d9edf7;
-        color: #31708f;
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .hero-content {
+            padding: 3rem 0;
+        }
+        
+        .section {
+            padding: 2.5rem 0;
+        }
     }
 </style>
+
 <!-- Hero Section -->
-<div class="jumbotron text-white shadow-sm rounded-4" style="background: linear-gradient(135deg, #16a085, #1abc9c);">
-    <div class="container py-5 text-center">
-        <h1 class="display-3 fw-bold">Welcome to EcoShop</h1>
-        <p class="lead">Your gateway to a sustainable future with eco-friendly products and community-driven initiatives.</p>
-        <a href="{{ url_for('products') }}" class="btn btn-primary btn-lg me-3">Shop Now</a>
-        <a href="{{ url_for('community') }}" class="btn btn-outline-light btn-lg">Learn More</a>
-    </div>
-</div>
-
-<!-- Section 1: Circular Economy -->
-<div class="container mt-5">
-    <div class="row align-items-center mb-5">
-        <div class="col-lg-6 order-lg-1 order-2">
-            <h2 class="mb-4 text-primary">What is Circular Economy?</h2>
-            <p>The Circular Economy is an innovative model aimed at reducing waste, maximizing resource efficiency, and fostering sustainability. It emphasizes reuse, repair, and recycling over the traditional 'take-make-dispose' system.</p>
-            <ul class="list-unstyled">
-                <li class="mb-3"><i class="bi bi-arrow-repeat text-primary me-2"></i><strong>Reduce:</strong> Minimize energy and material use.</li>
-                <li class="mb-3"><i class="bi bi-recycle text-primary me-2"></i><strong>Reuse:</strong> Extend product life by repurposing.</li>
-                <li class="mb-3"><i class="bi bi-tools text-primary me-2"></i><strong>Repair:</strong> Enhance product durability.</li>
-                <li class="mb-3"><i class="bi bi-lightbulb-fill text-primary me-2"></i><strong>Innovate:</strong> Build sustainable systems and products.</li>
-            </ul>
-        </div>
-        <div class="col-lg-6 order-lg-2 order-1 text-center">
-            <img src="https://www.greenliferesource.com/images/circular-economy-infographic.jpg" class="img-fluid rounded shadow" alt="Circular Economy">
+<section class="hero-section shadow-lg">
+    <div class="container hero-content text-center">
+        <h1 class="display-3 fw-bold text-white mb-4">Welcome to EcoShop</h1>
+        <p class="lead text-white mb-5">Join the movement towards a sustainable future with our eco-friendly products and community initiatives</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ url_for('products') }}" class="btn btn-light btn-lg px-4 py-2 fw-bold" style="color: var(--dark-green);">Shop Now</a>
+            <a href="{{ url_for('community') }}" class="btn btn-outline-light btn-lg px-4 py-2">Learn More</a>
         </div>
     </div>
-</div>
+</section>
 
-<!-- Section 2: How EcoShop Works -->
-<div class="bg-light py-5 px-4 rounded-4 shadow-sm">
-    <h2 class="text-center text-primary mb-5">How EcoShop Works</h2>
-    <div class="row g-4 align-items-center">
-        <div class="col-lg-6">
-            <img src="https://www.fractracker.org/a5ej20sjfwe/wp-content/uploads/2019/11/CircularEconomy.png" class="img-fluid rounded shadow" alt="How EcoShop Works">
-        </div>
-        <div class="col-lg-6">
-            <ol class="list-group list-group-numbered">
-                <li class="list-group-item border-0"><strong>Explore Products:</strong> Discover curated eco-friendly products for every need.</li>
-                <li class="list-group-item border-0"><strong>Share Items:</strong> List items you want to sell, donate, or exchange.</li>
-                <li class="list-group-item border-0"><strong>Connect:</strong> Collaborate with like-minded individuals in our community.</li>
-                <li class="list-group-item border-0"><strong>Promote Reuse:</strong> Join initiatives to reduce waste and promote resource sharing.</li>
-            </ol>
-            <a href="{{ url_for('community') }}" class="btn btn-success mt-4">Join Our Community</a>
-        </div>
-    </div>
-</div>
-
-<!-- Section 3: Benefits -->
-<div class="py-5">
-    <h2 class="text-center text-primary mb-5">Benefits of Joining EcoShop</h2>
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <img src="https://img.freepik.com/free-vector/savings-concept-illustration_114360-1516.jpg?t=st=1737287496~exp=1737291096~hmac=74191f4cc895bc921abb384bb28fa6cef8108c6a6942c73ecac9bb55f3f1990b&w=826" class="card-img-top rounded-top" alt="Save Money">
-                <div class="card-body">
-                    <h5 class="card-title text-primary">Save Money</h5>
-                    <p class="card-text">Access affordable, high-quality products while contributing to sustainability.</p>
-                </div>
+<!-- Circular Economy Section -->
+<section class="section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="section-title">What is Circular Economy?</h2>
+                <p class="lead mb-4">The Circular Economy is transforming how we produce, consume, and think about resources.</p>
+                <ul class="feature-list">
+                    <li class="mb-3"><strong>Reduce:</strong> Minimize energy and material use through efficient design</li>
+                    <li class="mb-3"><strong>Reuse:</strong> Extend product lifecycles through sharing and repurposing</li>
+                    <li class="mb-3"><strong>Recycle:</strong> Transform waste into valuable resources</li>
+                    <li class="mb-3"><strong>Regenerate:</strong> Restore natural systems while creating economic value</li>
+                </ul>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <img src="https://img.freepik.com/free-vector/magnifying-glass-with-environmental-pollution-elements-around_1284-21329.jpg?t=st=1737287575~exp=1737291175~hmac=8b41853bd7abd77a4e8cf571d5ae79a0f04c30ecac3793e5efdd05ab536c940e&w=826" class="card-img-top rounded-top" alt="Environmental Impact">
-                <div class="card-body">
-                    <h5 class="card-title text-primary">Environmental Impact</h5>
-                    <p class="card-text">Reduce waste and conserve natural resources to build a greener planet.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <img src="https://img.freepik.com/free-vector/drawn-clothing-donation-illustration_23-2148814968.jpg?t=st=1737287735~exp=1737291335~hmac=ea237c9a39af2145def7d6a9bf65e3d0f5015a17cc8ba6d30ac49db959f2c26f&w=826" class="card-img-top rounded-top" alt="Community Engagement">
-                <div class="card-body">
-                    <h5 class="card-title text-primary">Community Engagement</h5>
-                    <p class="card-text">Join a network of like-minded individuals passionate about sustainability.</p>
+            <div class="col-lg-6">
+                <div class="ratio ratio-16x9 shadow-lg rounded-3 overflow-hidden">
+                    <img src="https://www.icscareergps.com/blog/wp-content/uploads/2022/06/circular-economy-graphic-1024x715.png" class="img-fluid" alt="Circular Economy Diagram">
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-
-<!-- Featured Products Section -->
-<div class="container mt-5">
-    <h2 class="text-center text-primary mb-5">Our Featured Products</h2>
-
-    {% if no_products_message %}
-        <div class="alert alert-info text-center">
-            <h3>{{ no_products_message }}</h3>
-        </div>
-    {% else %}
-        <div class="row">
-            {% for product in products %}
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm h-100 border-0">
-                        <img src="{{ product.image or 'https://via.placeholder.com/300x200' }}" class="card-img-top" alt="{{ product.name }}" style="object-fit: cover; height: 250px;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ product.name }}</h5>
-                            <p class="card-text">Price: ₹{{ "%.2f"|format(product.price) }}</p>
-                            <p class="card-text">Location: {{ product.place }}</p>
-                            <p class="card-text">Category: {{ product.category }}</p>
-                            <p class="card-text">Weight: {{ product.weight }} kg</p>
-                            <p class="card-text">Product Description: {{ product.description }}</p>
-                            <a href="{{ url_for('products') }}" class="btn btn-primary d-block w-100 mt-3">Shop Now</a>
+<!-- How It Works Section -->
+<section class="section section-light">
+    <div class="container">
+        <h2 class="section-title text-center">How EcoShop Works</h2>
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="ratio ratio-16x9 shadow-lg rounded-3 overflow-hidden">
+                    <img src="https://www.fractracker.org/a5ej20sjfwe/wp-content/uploads/2019/11/CircularEconomy.png" class="img-fluid" alt="How EcoShop Works">
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="eco-card bg-white p-4 h-100">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-weight: bold;">1</div>
+                                <h4 class="ms-3 mb-0">Discover</h4>
+                            </div>
+                            <p>Browse our curated selection of sustainable products from trusted sellers.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="eco-card bg-white p-4 h-100">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-weight: bold;">2</div>
+                                <h4 class="ms-3 mb-0">Connect</h4>
+                            </div>
+                            <p>Join our community of eco-conscious individuals and businesses.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="eco-card bg-white p-4 h-100">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-weight: bold;">3</div>
+                                <h4 class="ms-3 mb-0">Contribute</h4>
+                            </div>
+                            <p>List your own items for sale, donation, or exchange within our platform.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="eco-card bg-white p-4 h-100">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-weight: bold;">4</div>
+                                <h4 class="ms-3 mb-0">Impact</h4>
+                            </div>
+                            <p>Track your environmental impact and see how you're making a difference.</p>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-</div>
-<!-- Section 4: Testimonials -->
-<div class="bg-light py-5 px-4 rounded-4 shadow-sm">
-    <h2 class="text-center text-primary mb-5">What Our Members Say</h2>
-    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-        <!-- Indicators -->
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-
-        <!-- Carousel Content -->
-        <div class="carousel-inner">
-            <div class="carousel-item active text-center">
-                <div class="p-4">
-                    <blockquote class="blockquote">
-                        <p class="fs-4">"EcoShop has transformed the way I shop sustainably!"</p>
-                    </blockquote>
-                    <footer class="blockquote-footer text-muted mt-3">
-                        Jane Doe, <cite title="Source Title">EcoShop Member</cite>
-                    </footer>
-                </div>
-            </div>
-
-            <div class="carousel-item text-center">
-                <div class="p-4">
-                    <blockquote class="blockquote">
-                        <p class="fs-4">"The community is inspiring, and the products are amazing."</p>
-                    </blockquote>
-                    <footer class="blockquote-footer text-muted mt-3">
-                        John Smith, <cite title="Source Title">EcoShop Member</cite>
-                    </footer>
-                </div>
-            </div>
-
-            <div class="carousel-item text-center">
-                <div class="p-4">
-                    <blockquote class="blockquote">
-                        <p class="fs-4">"EcoShop makes sustainable living effortless."</p>
-                    </blockquote>
-                    <footer class="blockquote-footer text-muted mt-3">
-                        Emily Johnson, <cite title="Source Title">EcoShop Member</cite>
-                    </footer>
-                </div>
             </div>
         </div>
-
-        <!-- Carousel Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
-</div>
+</section>
 
-<!-- Call to Action -->
-<div class="text-center py-5 rounded-4 text-white" style="background: linear-gradient(135deg, #575656, #6495ed);">
-    <h2 class="mb-4">Get Started with EcoShop</h2>
-    <p>Make a difference today by joining EcoShop and embracing sustainable living.</p>
-    <a href="{{ url_for('products') }}" class="btn btn-warning btn-lg me-3">Explore Products</a>
-    <a href="{{ url_for('community') }}" class="btn btn-outline-light btn-lg">Join Now</a>
-</div>
+<!-- Benefits Section -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title text-center">Why Choose EcoShop?</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="https://img.freepik.com/free-vector/savings-concept-illustration_114360-1516.jpg?t=st=1737287496~exp=1737291096~hmac=74191f4cc895bc921abb384bb28fa6cef8108c6a6942c73ecac9bb55f3f1990b&w=826" class="card-img-top rounded-top" alt="Save Money">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">Save Money</h5>
+                        <p class="card-text">Access affordable, high-quality products while contributing to sustainability.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="https://img.freepik.com/free-vector/magnifying-glass-with-environmental-pollution-elements-around_1284-21329.jpg?t=st=1737287575~exp=1737291175~hmac=8b41853bd7abd77a4e8cf571d5ae79a0f04c30ecac3793e5efdd05ab536c940e&w=826" class="card-img-top rounded-top" alt="Environmental Impact">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">Environmental Impact</h5>
+                        <p class="card-text">Reduce waste and conserve natural resources to build a greener planet.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="https://img.freepik.com/free-vector/drawn-clothing-donation-illustration_23-2148814968.jpg?t=st=1737287735~exp=1737291335~hmac=ea237c9a39af2145def7d6a9bf65e3d0f5015a17cc8ba6d30ac49db959f2c26f&w=826" class="card-img-top rounded-top" alt="Community Engagement">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">Community Engagement</h5>
+                        <p class="card-text">Join a network of like-minded individuals passionate about sustainability.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="section section-light">
+    <div class="container">
+        <h2 class="section-title text-center">Featured Products</h2>
+        
+        {% if no_products_message %}
+            <div class="alert alert-info text-center py-4">
+                <h3 class="mb-0">{{ no_products_message }}</h3>
+            </div>
+        {% else %}
+            <div class="row g-4">
+                {% for product in products %}
+                    <div class="col-md-4">
+                        <div class="eco-card">
+                            <img src="{{ product.image or 'https://via.placeholder.com/300x200?text=EcoShop+Product' }}" class="eco-card-img w-100" alt="{{ product.name }}">
+                            <div class="eco-card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h3 class="eco-card-title h5 mb-0">{{ product.name }}</h3>
+                                    <span class="badge bg-success">₹{{ "%.2f"|format(product.price) }}</span>
+                                </div>
+                                <div class="d-flex small mb-3">
+                                    <span class="me-3"><i class="bi bi-geo-alt me-1"></i> {{ product.place }}</span>
+                                    <span><i class="bi bi-tag me-1"></i> {{ product.category }}</span>
+                                </div>
+                                <p class="eco-card-text small">{{ product.description|truncate(100) }}</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="badge bg-light text-dark"><i class="bi bi-box-seam me-1"></i> {{ product.weight }} kg</span>
+                                    <a href="{{ url_for('products') }}" class="btn btn-sm btn-primary">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-5">
+                <a href="{{ url_for('products') }}" class="btn btn-primary btn-lg px-5">View All Products</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title text-center">What Our Community Says</h2>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <div class="mb-4">
+                        <div class="d-flex">
+                            {% for _ in range(5) %}
+                                <i class="bi bi-star-fill text-warning me-1"></i>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <p class="testimonial-text mb-4">"EcoShop has completely changed how I think about consumption. I've saved money and reduced my environmental impact significantly."</p>
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" class="rounded-circle" width="50" alt="User">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="testimonial-author mb-0">Priya Sharma</h5>
+                            <small class="text-muted">Member since 2022</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <div class="mb-4">
+                        <div class="d-flex">
+                            {% for _ in range(5) %}
+                                <i class="bi bi-star-fill text-warning me-1"></i>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <p class="testimonial-text mb-4">"The quality of products on EcoShop surprised me. I found exactly what I needed at a fraction of the retail price."</p>
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" class="rounded-circle" width="50" alt="User">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="testimonial-author mb-0">Rahul Patel</h5>
+                            <small class="text-muted">Small Business Owner</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <div class="mb-4">
+                        <div class="d-flex">
+                            {% for _ in range(5) %}
+                                <i class="bi bi-star-fill text-warning me-1"></i>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <p class="testimonial-text mb-4">"As a sustainability educator, I recommend EcoShop to all my students. It's a practical way to live circular economy principles."</p>
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="rounded-circle" width="50" alt="User">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="testimonial-author mb-0">Dr. Ananya Gupta</h5>
+                            <small class="text-muted">Sustainability Professor</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container text-center cta-content">
+        <h2 class="display-5 fw-bold text-white mb-4">Ready to Make a Difference?</h2>
+        <p class="lead text-white mb-5">Join thousands of eco-conscious individuals transforming consumption patterns</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ url_for('register') }}" class="btn btn-cta btn-lg">Sign Up Free</a>
+            <a href="{{ url_for('community') }}" class="btn btn-outline-light btn-lg">Learn More</a>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
