@@ -12,6 +12,8 @@ from backend import process_and_update_products
 print(process_and_update_products)  # Should show a function reference
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from llmbackend import generate_recycling_idea  # Import the function from llmbackend.py
+
+from recommender import *
 print(generate_recycling_idea)
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -345,6 +347,20 @@ def ai_chat():
             return jsonify({"error": str(e)}), 500
     
     return render_template('ai_chat.html')  # Render the AI chat page
+@app.route('/recommend/<product_id>')
+def recommend(product_id):
+    if 'user_id' not in session:
+        flash("Please log in to see recommendations.", "warning")
+        return redirect(url_for('login'))
+
+    recommendations = get_product_recommendations(product_id)
+    
+    for product in recommendations:
+        product['_id'] = str(product['_id'])
+        if 'image' in product:
+            product['image'] = f"data:image/jpeg;base64,{product['image']}"
+
+    return render_template('recommendations.html', products=recommendations)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

@@ -335,7 +335,6 @@
             </div>
         </form>
     </div>
-
 <!-- Product Listings -->
 <div class="product-grid">
     {% if products %}
@@ -350,8 +349,6 @@
             </div>
             <div class="product-body">
                 <h3 class="product-title">{{ product.name }}</h3>
-                
-                <!-- Price Tag -->
                 <div class="price-tag">
                     {% if product.price == 0 or product.price == 0.00 %}
                         <span class="price-value-free">FREE</span>
@@ -363,32 +360,24 @@
                         {% endif %}
                     {% endif %}
                 </div>
-                
-                <!-- Product Details Tags -->
                 <div class="product-tags-container">
                     <div class="product-tag location-tag">
                         <i class="bi bi-geo-alt"></i>
                         <span>{{ product.place }}</span>
                     </div>
-                    
                     <div class="product-tag quantity-tag">
                         <i class="bi bi-box"></i>
                         <span>{{ product.quantity }} in stock</span>
                     </div>
-                    
                     <div class="product-tag weight-tag">
                         <i class="bi bi-speedometer2"></i>
                         <span>{{ product.weight }} kg each</span>
                     </div>
                 </div>
-                
-                <!-- Description -->
                 <div class="product-description-container">
                     <h4 class="description-heading">Product Details</h4>
                     <p class="product-description">{{ product.description }}</p>
                 </div>
-                
-                <!-- Seller Information -->
                 <div class="seller-info-tag">
                     <div class="seller-details">
                         <div class="seller-name">{{ product.owner_name }}</div>
@@ -399,7 +388,6 @@
                         </div>
                     </div>
                 </div>
-                
                 {% if product.owner_id == session.get('user_id') %}
                 <div class="product-actions">
                     <a href="{{ url_for('edit_product', product_id=product['_id']) }}" class="btn btn-warning action-btn">
@@ -412,6 +400,11 @@
                     </form>
                 </div>
                 {% endif %}
+                <div class="mt-2">
+                    <a href="{{ url_for('recommend', product_id=product._id) }}" class="btn btn-outline-success action-btn">
+                        <i class="bi bi-stars"></i> Get Recommendations
+                    </a>
+                </div>
             </div>
         </div>
         {% endfor %}
@@ -427,6 +420,73 @@
     {% endif %}
 </div>
 
+<!-- 🔽 Recommended Products Section -->
+{% if recommendations %}
+<hr class="my-5">
+<h3 class="mb-4">Recommended Products Based on Your Latest Upload</h3>
+
+<div class="product-grid">
+    {% for rec in recommendations %}
+    <div class="product-card">
+        <div class="product-image-container">
+            <img src="{{ rec.image or 'https://via.placeholder.com/300x220' }}" alt="{{ rec.name }}">
+            <span class="product-badge">{{ rec.category }}</span>
+            {% if rec.quantity <= 5 %}
+            <span class="product-stock-badge">Low Stock!</span>
+            {% endif %}
+        </div>
+        <div class="product-body">
+            <h3 class="product-title">{{ rec.name }}</h3>
+            <div class="price-tag">
+                {% if rec.price == 0 or rec.price == 0.00 %}
+                    <span class="price-value-free">FREE</span>
+                {% else %}
+                    <span class="price-icon">₹</span>
+                    <span class="price-value">{{ "%.2f"|format(rec.price) }}</span>
+                    {% if rec.price < 500 %}
+                    <span class="price-discount-tag">Great Deal!</span>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="product-tags-container">
+                <div class="product-tag location-tag">
+                    <i class="bi bi-geo-alt"></i>
+                    <span>{{ rec.place }}</span>
+                </div>
+                <div class="product-tag quantity-tag">
+                    <i class="bi bi-box"></i>
+                    <span>{{ rec.quantity }} in stock</span>
+                </div>
+                <div class="product-tag weight-tag">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>{{ rec.weight }} kg each</span>
+                </div>
+            </div>
+            {% if rec.tags %}
+            <div class="product-tags-container mt-2">
+                {% for tag in rec.tags %}
+                <span class="badge rounded-pill bg-success text-white">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="product-description-container mt-3">
+                <p class="product-description">{{ rec.description }}</p>
+            </div>
+            <div class="seller-info-tag">
+                <div class="seller-details">
+                    <div class="seller-name">{{ rec.owner_name }}</div>
+                    <div class="seller-contact">
+                        <a href="mailto:{{ rec.owner_email }}" class="seller-email">
+                            <i class="bi bi-envelope"></i> {{ rec.owner_email }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
 <style>
     .price-value-free {
     color: #2ecc71;
