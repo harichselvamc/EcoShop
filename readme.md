@@ -28,7 +28,7 @@
 
 ## Author's Research Publication & Related Work
 
-Alongside this Bachelor's degree project, the author has conducted and published peer-reviewed research in multimodal artificial intelligence and clinical decision support systems:
+Alongside this Bachelor's degree project, also conducted and published peer-reviewed research in multimodal artificial intelligence and clinical decision support systems:
 
 ### **CardioPredict: Multimodal Cardiovascular Disease Assessment**
 An automated multimodal diagnostic framework combining tabular clinical indicators (Random Forest on Cleveland & Framingham cohorts), 1D convolutional ECG signal processing (MIT-BIH arrhythmia classification), and 2D computer vision (12-lead ECG printout diagnosis) with decision-level risk fusion.
